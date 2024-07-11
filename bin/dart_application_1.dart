@@ -5,197 +5,21 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'package:intl/intl.dart';
 
-void main() {
+void main() async {
   stdout.write("""
-Exercise 1
-Create a program that asks the user to enter their name and their age. Print out a message that tells how many years they have to be 100 years old.
-
-Exercise 2
-Ask the user for a number. Depending on whether the number is even or odd, print out an appropriate message to the user.
-
-Exercise 3
-Take a list, say for example this one:
-a = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
-and write a program that prints out all the elements of the list that are less than 5.
-
-Exercise 4
-Create a program that asks the user for a number and then prints out a list of all the divisors of that number.
-If you don’t know what a divisor is, it is a number that divides evenly into another number. For example, 13 is a divisor of 26 because 26 / 13 has no remainder.
-
-Exercise 5
-Take two lists, for example:
-a = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
-b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-and write a program that returns a list that contains only the elements that are common between them (without duplicates). Make sure your program works on two lists of different sizes.
-
-Exercise 6
-Ask the user for a string and print out whether this string is a palindrome or not.
-A palindrome is a string that reads the same forwards and backwards.
-
-Exercise 7
-Let’s say you are given a list saved in a variable:
-a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]. 
-Write a Dart code that takes this list and makes a new list that has only the even elements of this list in it.
-
-Exercise 8
-Make a two-player Rock-Paper-Scissors game against computer.
-Ask for player's input, compare them, print out a message to the winner.
-
-Exercise 9
-Generate a random number between 1 and 100. Ask the user to guess the number, then tell them whether they guessed too low, too high, or exactly right.
-Keep track of how many guesses the user has taken, and when the game ends, print this out.
-
-Exercise 10
-Ask the user for a number and determine whether the number is prime or not.
-Do it using a function
-
-Exercise 11
-Write a program that takes a list of numbers for example
-a = [5, 10, 15, 20, 25]
-and makes a new list of only the first and last elements of the given list. For practice, write this code inside a function.
-
-Exercise 12
-Write a program that asks the user how many Fibonnaci numbers to generate and then generates them. Take this opportunity to think about how you can use functions.
-Make sure to ask the user to enter the number of numbers in the sequence to generate.
-
-Exercise 13
-Write a program (function) that takes a list and returns a new list that contains all the elements of the first list minus all the duplicates.
-
-Exercise 14
-Write a program (using functions!) that asks the user for a long string containing multiple words. Print back to the user the same string, except with the words in backwards order.
-For example, say I type the string:
-My name is Michele
-Then I would see the string:
-Michele is name My
-
-Exercise 15
-Write a password generator in Dart. Be creative with how you generate passwords - strong passwords have a mix of lowercase letters, uppercase letters, numbers, and symbols.
-The passwords should be random, generating a new password every time the user asks for a new password. Include your run-time code in a main method.
-Ask the user how strong they want their password to be. For weak passwords, pick a word or two from a list.
-:exclamation: Do not use the generated password in your real accounts. Use 1password.
-
-Exercise 16
-Create a program that will play the “cows and bulls” game with the user. The game works like this:
-Randomly generate a 4-digit number. Ask the user to guess a 4-digit number. For every digit the user guessed correctly in the correct place, they have a “cow”.
-For every digit the user guessed correctly in the wrong place is a “bull.”
-Every time the user makes a guess, tell them how many “cows” and “bulls” they have. Once the user guesses the correct number, the game is over.
-Keep track of the number of guesses the user makes throughout the game and tell the user at the end.
-
-Exercise 17
-Time for some fake graphics! Let’s say we want to draw game boards that look like this:
- --- --- --- 
-|   |   |   | 
- --- --- ---  
-|   |   |   | 
- --- --- ---  
-|   |   |   | 
- --- --- --- 
-This one is 3x3 (like in tic tac toe).
-Ask the user what size game board they want to draw, and draw it for them to the screen using Dart’s print statement.
-
-Exercise 18
-As you may have guessed, we are trying to build up to a full tic-tac-toe board.
-For now, we will simply focus on checking whether someone has WON the game, not worrying about how the moves were made.
-If a game of Tic Tac Toe is represented as a list of lists, like so:
-game = [[1, 2, 0],
-        [2, 1, 0],
-        [2, 1, 1]]
-where a 0 means an empty square, a 1 means that player 1 put their token in that space, and a 2 means that player 2 put their token in that space.
-Your task: given a 3 by 3 list of lists that represents a Tic Tac Toe game board, tell whether anyone has won, and tell which player won, if any.
-A Tic Tac Toe win is 3 in a row - either in a row, a column, or a diagonal. Don’t worry about the case where TWO people have won - assume that in every board there will only be one winner.
-
-Exercise 19
-In a previous exercise we explored the idea of using a list of lists as a “data structure” to store information about a tic tac toe game.
-In a tic tac toe game, the “game server” needs to know where the Xs and Os are in the board, to know whether player 1 or player 2 (or whoever is X and O) won.
-There has also been an exercise (17) about drawing the actual tic tac toe gameboard using text characters.
-The next logical step is to deal with handling user input. When a player (say player 1, who is X) wants to place an X on the screen, they can’t just click on a terminal.
-So you are going to approximate this clicking simply by asking the user for a coordinate of where they want to place their piece.
-
-Exercise 20
-In 3 previous exercises, we built up a few components needed to build a Tic Tac Toe game in Dart:
-Draw the Tic Tac Toe game board
-Checking whether a game board has a winner
-Handle a player move from user input
-The next step is to put all these three components together to make a two-player Tic Tac Toe game!
-Your challenge in this exercise is to use the functions from those previous exercises all together in the same program to make a two-player game that you can play with a friend.
-There are a lot of choices you will have to make when completing this exercise, so you can go as far or as little as you want with it.
-Here are a few things to keep in mind:
-You should keep track of who won - if there is a winner, show a congratulatory message on the screen.
-If there are no more moves left, don’t ask for the next player’s move!
-:notes: Keep in mind, the current solution is not just a copy pase of functions from the previous exercises, but rather a rework of them.
-
-Exercise 21
-You, the user, will have in your head a number between 0 and 100.
-The program will guess a number, and you, the user, will say whether it is too high, too low, or your number.
-At the end of this exchange, your program should print out how many guesses it took to get your number.
-
-Exercise 22
-Implement a function that takes as input three variables, and returns the largest of the three. Do this without using the Dart max() function!
-The goal of this exercise is to think about some internals that Dart normally takes care of for us. All you need is some variables and if statements!
-
-Exercise 23
-In this exercise, the task is to write a function that picks a random word from a list of words from the SOWPODS dictionary.
-Download this file and save it in the same directory as your Dart code. Each line in the file contains a single word.
-Use the Dart random library for picking a random word.
-
-Exercise 24
-In the game of Hangman, a clue word is given by the program that the player has to guess, letter by letter. The player guesses one letter at a time until the entire word has been guessed. (In the actual game, the player can only guess 6 letters incorrectly before losing).
-Let’s say the word the player has to guess is EVAPORATE.
-For this exercise:
-Write the logic that asks a player to guess a letter and displays letters in the clue word that were guessed correctly.
-For now, let the player guess an infinite number of times until they get the entire word.
-As a bonus, keep track of the letters the player guessed and display a different message if the player tries to guess that letter again.
-Remember to stop the game when all the letters have been guessed correctly! Don’t worry about choosing a word randomly or keeping track of the number of guesses the player has remaining - we will deal with those in a future exercise.
-
-Exercise 25
-In this exercise, we will finish building Hangman. In the game of Hangman, the player only has 6 incorrect guesses (head, body, 2 legs, and 2 arms) before they lose the game.
-In Part 1, we loaded a random word list and picked a word from it.
-In Part 2, we wrote a logic for guessing the letter and displaying that information to user.
-In this exercise, we have to put it all together and add logic for handling guesses.
-Copy your code from Parts 1 and 2 into a new file as a starting point. Now add the following features:
-Only let the user guess 6 times, and tell the user how many guesses they have left.
-Keep track of the letters user guessed. If the user guesses a letter they had already guessed, don’t penalize them - let them guess again.
-Optional additions:
-When the player wins or loses, let them start a new game.
-Rather than telling the user "You have 4 incorrect guesses left", display some picture art for the Hangman. This is challenging - do the other parts of the exercise first!
-Your solution will be a lot cleaner if you make use of functions to help you!
-
-Exercise 26
-For this exercise, we will keep track of when our friend’s birthdays are, and be able to find that information based on their name.
-Create a dictionary (in your file) of names and birthdays.
-When you run your program it should ask the user to enter a name, and return the birthday of that person back to them.
-The interaction should look something like this:
->>> Welcome to the birthday dictionary. We know the birthdays of:
-Albert Einstein
-Benjamin Franklin
-Ada Lovelace
->>> Who's birthday do you want to look up?
-Benjamin Franklin
->>> Benjamin Franklin's birthday is 01/17/1706.
-
-Exercise 27
-In the previous exercise we created a dictionary of famous scientists’ birthdays.
-
-In this exercise, modify your program from Part 1 to load the birthday dictionary from a JSON file on disk, rather than having the dictionary defined in the program.
-Bonus:
-Ask the user for another scientist’s name and birthday to add to the dictionary, and update the JSON file you have on disk with the scientist’s name.
-If you run the program multiple times and keep adding new names, your JSON file should keep getting bigger and bigger.
-
-Exercise 28
-In the previous exercise we saved information about famous scientists’ names and birthdays to disk.
-In this exercise, load that JSON file from disk, extract the months of all the birthdays, and count how many scientists have a birthday in each month.
-Your program should output something like:
-{
-    "May": 3,
-    "November": 2,
-    "December": 1
-}
-
-----------------------------------------------------------------
-| Chose number 1 for Exercise 1, 2 for Exercise 2 and so on... |
-----------------------------------------------------------------\n""");
+----------------------------------------------------------------------------------------------------------------------------------
+| Chose number 1 to run Exercise 1 program, 2 for Exercise 2 program and so on... until 28 or 0 to display Exercises Question :) |
+----------------------------------------------------------------------------------------------------------------------------------\n""");
   int exerciseNumber = int.parse(stdin.readLineSync() ?? "");
   switch (exerciseNumber) {
+
+    case 0:
+      stdout.write("""
+-------------------------------------------------------------------------------------------------------------------------
+| Chose number 1 to display Exercise 1 Question, 2 for to display Exercise 2 Question and so on... until Exercise 28 :) |
+-------------------------------------------------------------------------------------------------------------------------\n""");
+      showExerciseText(int.parse(stdin.readLineSync() ?? ''));
+
     case 1:
       stdout.write('Enter your name:');
       String name = stdin.readLineSync() ?? "User";
@@ -297,7 +121,7 @@ Your program should output something like:
       print("Initial list is $randList");
       print("Cleaned list is ${removeDuplicates(randList)}");
 
-    case 14:  
+    case 14:
       stdout.write("Write a multiple words to print it backwards order: ");
       String multiWords = stdin.readLineSync().toString();
       print(toBackwardOrder(multiWords));
@@ -1058,5 +882,160 @@ String getMonthName(int month) {
       return 'December';
     default:
       return 'Unknown';
+  }
+}
+
+Future<String> readFileContent(String path) async {
+  try {
+    final file = File(path);
+    return await file.readAsString();
+  } catch (e) {
+    return 'Error reading file: $e';
+  }
+}
+
+void showExerciseText(int exercise) async{
+  switch(exercise){
+
+    case 1:
+      String path = 'data\\exercises\\exercises1.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+    
+    case 2:
+      String path = 'data\\exercises\\exercises2.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 3:
+      String path = 'data\\exercises\\exercises3.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 4:
+      String path = 'data\\exercises\\exercises4.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 5:
+      String path = 'data\\exercises\\exercises5.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 6:
+      String path = 'data\\exercises\\exercises6.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+    
+    case 7:
+      String path = 'data\\exercises\\exercises7.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 8:
+      String path = 'data\\exercises\\exercises8.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 9:
+      String path = 'data\\exercises\\exercises9.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 10:
+      String path = 'data\\exercises\\exercises10.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 11:
+      String path = 'data\\exercises\\exercises11.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 12:
+      String path = 'data\\exercises\\exercises12.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 13:
+      String path = 'data\\exercises\\exercises13.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 14:
+      String path = 'data\\exercises\\exercises14.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 15:
+      String path = 'data\\exercises\\exercises15.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 16:
+      String path = 'data\\exercises\\exercises16.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 17:
+      String path = 'data\\exercises\\exercises17.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 18:
+      String path = 'data\\exercises\\exercises18.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 19:
+      String path = 'data\\exercises\\exercises19.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 20:
+      String path = 'data\\exercises\\exercises20.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 21:
+      String path = 'data\\exercises\\exercises21.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 22:
+      String path = 'data\\exercises\\exercises22.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 23:
+      String path = 'data\\exercises\\exercises23.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 24:
+      String path = 'data\\exercises\\exercises24.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 25:
+      String path = 'data\\exercises\\exercises25.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 26:
+      String path = 'data\\exercises\\exercises26.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 27:
+      String path = 'data\\exercises\\exercises27.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
+    case 28:
+      String path = 'data\\exercises\\exercises28.txt';
+      String fileContent = await readFileContent(path);
+      print("\n"+fileContent+"\n");
+
   }
 }
