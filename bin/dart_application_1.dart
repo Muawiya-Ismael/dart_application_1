@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
 import 'package:dart_application_1/dart_application_1.dart' as dart_application_1;
 import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
+import 'dart:ffi';
+import 'package:intl/intl.dart';
 
 void main() {
   stdout.write("""
@@ -191,9 +191,9 @@ Your program should output something like:
     "December": 1
 }
 
---------------------------------------------------------------
-|Chose number 1 for Exercise 1, 2 for Exercise 2 and so on...|
---------------------------------------------------------------\n""");
+----------------------------------------------------------------
+| Chose number 1 for Exercise 1, 2 for Exercise 2 and so on... |
+----------------------------------------------------------------\n""");
   int exerciseNumber = int.parse(stdin.readLineSync() ?? "");
   switch (exerciseNumber) {
     case 1:
@@ -401,11 +401,7 @@ Your program should output something like:
       hangman2(word);
 
     case 26:
-      Map<String, String> birthdays =  {
-        "Albert Einstein": "14/03/1879",
-        "Benjamin Franklin": "17/01/1706",
-        "Ada Lovlace": "10/12/1815",
-      };
+      Map<String, String> birthdays =  loadBirthdaysFromFile();
 
       print("\nHello there!. We know the birthdays of the following people: \n");
 
@@ -437,13 +433,30 @@ Your program should output something like:
       }
     
     case 27:
+      birthdays("data\\nameBirth.json");
 
     case 28:
-
-    
+      Map<String, String> birthdays = loadBirthdaysFromFile();
+      Map<String, int> monthCounts = {};
+      birthdays.forEach((name, birthDate) {
+        try {
+          DateTime dateTime = parseCustomDate(birthDate);
+          String month = getMonthName(dateTime.month);
+          monthCounts[month] ??= 0;
+          monthCounts[month] = monthCounts[month]! + 1;
+        } catch (e) {
+          print("Error parsing date for $name: $e");
+        }
+      });
+      print("Scientist birthdays by month:");
+      monthCounts.forEach((month, count) {
+        print("$month: $count");
+      });
+     
     default:
       print("Incorrect input, plz enter exercise number from 1 to 28.");
-  }
+
+    }
 }
 
 isPalindrome(var word) {
@@ -946,7 +959,7 @@ void intro() {
 
 Map<String, String> loadBirthdaysFromFile() {
   try {
-    File file = File('data\nameBirth.json');
+    File file = File('data\\nameBirth.json');
     if (!file.existsSync()) {
       return {};
     }
@@ -960,7 +973,7 @@ Map<String, String> loadBirthdaysFromFile() {
 
 void saveBirthdaysToFile(Map<String, String> birthdays) {
   try {
-    File file = File('data\nameBirth.json');
+    File file = File('data\\nameBirth.json');
     String jsonBirthdays = jsonEncode(birthdays);
     file.writeAsStringSync(jsonBirthdays);
   } catch (e) {
@@ -968,21 +981,82 @@ void saveBirthdaysToFile(Map<String, String> birthdays) {
   }
 }
 
+void birthdays(String txt) {
 
+  var file = File(txt);
+  Map<String, Object> data = json.decode(file.readAsStringSync());
 
+  print("\nHello there!. We know the birthdays of the following people: \n");
+  data.forEach((key, value) {
+    print(key);
+  });
 
+  stdout.write("\nWho's birthday do you want to know? ");
+  String choice = stdin.readLineSync().toString();
+  print("\n$choice's birthday is ${data[choice]}\n");
 
+  stdout.write("\nWould you like to add more people's birthdays? ");
+  String answer = stdin.readLineSync().toString().toLowerCase();
 
+  if (answer == "yes") {
+    stdout.write("Give us a name: ");
+    String name = stdin.readLineSync().toString();
+    stdout.write("Give us their birthday (dd/mm/yyyy): ");
+    String birthday = stdin.readLineSync().toString();
 
+    data[name] = birthday;
+    file.writeAsStringSync(json.encode(data));
 
+    print("\nThank you! We have more people now!\n");
 
+    data.forEach(
+      (key, value) {
+        print("$key: $value");
+      },
+    );
+  } else {
+    print("\nOK. Bye bye!\n");
+  }
+}
 
+DateTime parseCustomDate(String dateStr) {
+  List<String> parts = dateStr.split('/');
+  if (parts.length != 3) {
+    throw FormatException("Invalid date format: $dateStr");
+  }
+  int day = int.parse(parts[0]);
+  int month = int.parse(parts[1]);
+  int year = int.parse(parts[2]);
+  return DateTime(year, month, day);
+}
 
-
-
-
-
-
-
-
-
+String getMonthName(int month) {
+  switch (month) {
+    case 1:
+      return 'January';
+    case 2:
+      return 'February';
+    case 3:
+      return 'March';
+    case 4:
+      return 'April';
+    case 5:
+      return 'May';
+    case 6:
+      return 'June';
+    case 7:
+      return 'July';
+    case 8:
+      return 'August';
+    case 9:
+      return 'September';
+    case 10:
+      return 'October';
+    case 11:
+      return 'November';
+    case 12:
+      return 'December';
+    default:
+      return 'Unknown';
+  }
+}
