@@ -1,9 +1,6 @@
-import 'package:dart_application_1/dart_application_1.dart' as dart_application_1;
 import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
-import 'dart:ffi';
-import 'package:intl/intl.dart';
 
 void main() async {
   stdout.write("""
@@ -26,8 +23,8 @@ void main() async {
       stdout.write('Hi $name can you enter your age:');
       int age = int.parse(stdin.readLineSync() ?? '');
 
-      double yearsToHunderd = 100 - age.toDouble();
-      stdout.write('$name, You have $yearsToHunderd years to be 100');
+      double yearsToHundred = 100 - age.toDouble();
+      stdout.write('$name, You have $yearsToHundred years to be 100');
 
     case 2:
       stdout.write("Enter a random number:");
@@ -74,7 +71,9 @@ void main() async {
           b.contains(number) ? commonNumbers.add(number) : '';
         }
       }
-      commonNumbers.forEach((number) => print(number));
+      for (var number in commonNumbers) {
+        print(number);
+      }
 
     case 6:
       print("Enter a word: ");
@@ -191,7 +190,7 @@ void main() async {
       compGuess();
     
     case 22:
-      var max;
+      var max = 0;
       int a = 32;
       int b = 12;
       int c = 64;
@@ -403,7 +402,6 @@ void isPrime(int number) {
     int divisor = (number ~/ 2);
     int factors = 0;
     while (divisor != 0) {
-      int element = 0;
       number % divisor == 0 ? factors++ : "";
       divisor--;
     }
@@ -557,7 +555,7 @@ List<List<int>> diagonals(List<List<int>> board) {
 }
 
 void drawXOBoard(List<List<String>> board, int currentUser) {
-  var move;
+  String move;
   currentUser == 1 ? move = 'X' : move = 'O';
 
   stdout.write("Please choose a coordinate: ");
@@ -587,7 +585,7 @@ void currentBoard(List<List<String>> board) {
 }
 
 List<List<String>> makeMove(List<List<String>> board, int currentUser, List choice) {
-  var move;
+  String move;
   currentUser == 1 ? move = 'X' : move = 'O';
 
   board[int.parse(choice[0])][int.parse(choice[1])] = move;
@@ -682,7 +680,7 @@ void hangman(String word) {
     String choice = stdin.readLineSync().toString().toUpperCase();
 
     if (choice == word) {
-      print("\nBingo! Attemps: $count");
+      print("\nBingo! Attempts: $count");
       break;
     } else if (choice == "EXIT") {
       print("\nBye bye!\n");
@@ -732,17 +730,17 @@ void hangman2(String word) {
     }
 
     if (choice == word) {
-      print("\nBingo! Attemps: $count");
+      print("\nBingo! Attempts: $count");
       break;
     } else if (choice == "EXIT") {
       print("\nBye bye!\n");
       break;
     } else if (choice.length > 1) {
       attempts += 1;
-      print("\nNope! Attemps left: $attempts");
+      print("\nNope! Attempts left: $attempts");
       continue;
     } else if (attempts < 1) {
-      print("\nAttemps left: $attempts. \nGame over!");
+      print("\nAttempts left: $attempts. \nGame over!");
       print("\nThe word was: $word");
       break;
     }
@@ -757,7 +755,7 @@ void hangman2(String word) {
     print(clue.join(" "));
 
     if (clue.join("") == word) {
-      print("\nBingo! Attemps:$count\n");
+      print("\nBingo! Attempts:$count\n");
       break;
     }
   }
@@ -900,142 +898,142 @@ void showExerciseText(int exercise) async{
     case 1:
       String path = 'data\\exercises\\exercises1.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
     
     case 2:
       String path = 'data\\exercises\\exercises2.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 3:
       String path = 'data\\exercises\\exercises3.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 4:
       String path = 'data\\exercises\\exercises4.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 5:
       String path = 'data\\exercises\\exercises5.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 6:
       String path = 'data\\exercises\\exercises6.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
     
     case 7:
       String path = 'data\\exercises\\exercises7.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 8:
       String path = 'data\\exercises\\exercises8.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 9:
       String path = 'data\\exercises\\exercises9.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 10:
       String path = 'data\\exercises\\exercises10.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 11:
       String path = 'data\\exercises\\exercises11.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 12:
       String path = 'data\\exercises\\exercises12.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 13:
       String path = 'data\\exercises\\exercises13.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 14:
       String path = 'data\\exercises\\exercises14.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 15:
       String path = 'data\\exercises\\exercises15.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 16:
       String path = 'data\\exercises\\exercises16.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 17:
       String path = 'data\\exercises\\exercises17.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 18:
       String path = 'data\\exercises\\exercises18.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 19:
       String path = 'data\\exercises\\exercises19.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 20:
       String path = 'data\\exercises\\exercises20.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 21:
       String path = 'data\\exercises\\exercises21.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 22:
       String path = 'data\\exercises\\exercises22.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 23:
       String path = 'data\\exercises\\exercises23.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 24:
       String path = 'data\\exercises\\exercises24.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 25:
       String path = 'data\\exercises\\exercises25.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 26:
       String path = 'data\\exercises\\exercises26.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 27:
       String path = 'data\\exercises\\exercises27.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
     case 28:
       String path = 'data\\exercises\\exercises28.txt';
       String fileContent = await readFileContent(path);
-      print("\n"+fileContent+"\n");
+      print("\n$fileContent\n");
 
   }
 }
